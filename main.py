@@ -4,9 +4,10 @@ from pathlib import Path
 from simulator.models.circuit import Circuit
 from simulator.models.driver import Driver
 from simulator.models.car import Car
-from simulator.models.tyre import Tyre
+from simulator.models.tyre import create_tyre
 from simulator.engine.race import Race
 
+TYRE_COMPOUND = "HARD"
 
 def load_circuit(path: str) -> Circuit:
     """Load circuit information from JSON."""
@@ -49,11 +50,7 @@ def main():
         tyre_degradation_multiplier=1.0,
     )
 
-    tyre = Tyre(
-        compound="MEDIUM",
-        base_pace_delta=0.0,
-        degradation_per_lap=0.045,
-    )
+    tyre = create_tyre(TYRE_COMPOUND)
 
     race = Race(
         circuit=circuit,
