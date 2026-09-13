@@ -6,6 +6,7 @@ from simulator.models.driver import Driver
 from simulator.models.car import Car
 from simulator.models.tyre import create_tyre
 from simulator.engine.race import Race
+from simulator.analysis.tyre_comparison import compare_compounds
 
 TYRE_COMPOUND = "HARD"
 
@@ -101,6 +102,37 @@ def main():
     print()
 
     print("=" * 60)
+
+    print()
+    print("=" * 60)
+    print("              TYRE COMPOUND COMPARISON")
+    print("=" * 60)
+    print()
+
+    comparison_results = compare_compounds(
+        circuit=circuit,
+        driver=driver,
+        car=car,
+        starting_fuel=110.0,
+    )
+
+    print(
+        f"{'Compound':<12}"
+        f"{'Total Time':>18}"
+        f"{'Average Lap':>18}"
+    )
+
+    print("-" * 48)
+
+    for result in comparison_results:
+
+        print(
+            f"{result.compound:<12}"
+            f"{format_time(result.total_time):>18}"
+            f"{result.average_lap_time:>18.3f}"
+        )
+
+    print()
 
 
 if __name__ == "__main__":
